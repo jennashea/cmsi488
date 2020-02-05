@@ -7,6 +7,7 @@
 * comment = "--" (~"\n" any)* "\n"
 
 ### a.) What can you say about the relative precedences of and and or?
+They are the same.
 
 ### b.) If possible, give an AST for the expression X and Y or Z. (Assume, of course, that an Exp5 can lead to identifiers and numbers, etc.) If this is not possible, prove that it is not possible.
 
