@@ -11,17 +11,19 @@ const ohm = require('ohm-js');
 
 const aelGrammar = ohm.grammar(`Ael {
   Program = (Statement ";")+
-  Statement = id "=" Exp       --assign
-            | print Exp        --print
-  Exp       = Exp "+" Term     --plus
-            | Exp "-" Term     --minus
+  Statement = id "=" Exp        --assign
+            | print Exp         --print
+  Exp       = Exp "+" Term      --plus
+            | Exp "-" Term      --minus
             | Term
-  Term      = Term "*" Factor  --times
-            | Term "/" Factor  --divide
+  Term      = Term "*" Factor   --times
+            | Term "/" Factor   --divide
             | Factor
-  Factor    = "-" Primary      --negate
+  Factor    = "-" Power         --negate
+            | Power
+  Power     = Primary "^" Power --exponentiation
             | Primary
-  Primary   = "(" Exp ")"      --parens
+  Primary   = "(" Exp ")"       --parens
             | number
             | id
   number    = digit+
@@ -32,7 +34,7 @@ const aelGrammar = ohm.grammar(`Ael {
 const memory = new Map();
 
 // This language is so simple, we don't need an AST.
-const interpreter = aelGrammar.createSemantics().addOperation('exec', {
+const semantics = aelGrammar.createSemantics().addOperation('exec', {
   Program(ss, _semicolons) { ss.exec(); },
   Statement_assign(i, _eq, e) { memory.set(i.sourceString, e.eval()); },
   Statement_print(_, e) { console.log(e.eval()); },
@@ -49,7 +51,7 @@ const interpreter = aelGrammar.createSemantics().addOperation('exec', {
 
 const match = aelGrammar.match(process.argv[2]);
 if (match.succeeded()) {
-  interpreter(match).exec();
+  semantics(match).exec();
 } else {
   console.error(match.message);
   process.exitCode = 1;
