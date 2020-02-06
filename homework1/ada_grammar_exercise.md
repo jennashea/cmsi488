@@ -7,11 +7,13 @@
 * comment = "--" (~"\n" any)* "\n"
 
 ### a.) What can you say about the relative precedences of and and or?
-They are the same.
+They have the same precedence because they occupy the same line of the grammar. Because they are the very first line of the grammar, their precedence is the lowest.
 
 ### b.) If possible, give an AST for the expression X and Y or Z. (Assume, of course, that an Exp5 can lead to identifiers and numbers, etc.) If this is not possible, prove that it is not possible.
+The expression X and Y or Z is not possible because expressions involving "and" and "or" must include expressions in the form of Exp1. Going down the grammar, there are no points at which we could recurse back to Exp, therefore expressions with multiple And and Ors could not be made.
 
 ### c.) What are the associativities of the additive operators? The relational operators?
+
 
 ### d.) Is the not operator right associative? Why or why not?
 
