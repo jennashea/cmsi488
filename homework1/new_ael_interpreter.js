@@ -11,8 +11,10 @@ const ohm = require('ohm-js');
 
 const aelGrammar = ohm.grammar(`Ael {
   Program = (Statement ";")+
+  block = (Statement ";")+
   Statement = id "=" Exp        --assign
             | print Exp         --print
+            | while Exp "{" block "}"
   Exp       = Exp "+" Term      --plus
             | Exp "-" Term      --minus
             | Term
