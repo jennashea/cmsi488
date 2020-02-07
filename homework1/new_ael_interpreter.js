@@ -21,7 +21,7 @@ const aelGrammar = ohm.grammar(`Ael {
             | Factor
   Factor    = "-" Power         --negate
             | Power
-  Power     = Primary "^" Power --exponentiation
+  Power     = Primary "^" Power --exponent
             | Primary
   Primary   = "(" Exp ")"       --parens
             | number
@@ -44,6 +44,7 @@ const semantics = aelGrammar.createSemantics().addOperation('exec', {
   Term_times(t, _op, f) { return t.eval() * f.eval(); },
   Term_divide(t, _op, f) { return t.eval() / f.eval(); },
   Factor_negate(_op, p) { return -p.eval(); },
+  Power_exponent(p, _op, po) { return p.eval() ** po.eval(); },
   Primary_parens(_open, e, _close) { return e.eval(); },
   number(_chars) { return +this.sourceString; },
   id(_firstChar, _restChars) { return memory.get(this.sourceString); },
