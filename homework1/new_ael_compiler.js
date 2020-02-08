@@ -22,9 +22,11 @@ const aelGrammar = ohm.grammar(`Ael {
             | Term
   Term      = Term ("*"| "/") Factor   --binary
             | Factor
-  Factor    = "-" Primary              --negate
+  Factor    = "-" Power         --negate
+            | Power
+  Power     = Primary "^" Power --exponent
             | Primary
-  Primary   = "(" Exp ")"              --parens
+  Primary   = "(" Exp ")"       --parens
             | number
             | id
   number    = digit+
@@ -97,6 +99,7 @@ const astBuilder = aelGrammar.createSemantics().addOperation('ast', {
   Exp_binary(left, op, right) { return new BinaryExp(left.ast(), op.sourceString, right.ast()); },
   Term_binary(left, op, right) { return new BinaryExp(left.ast(), op.sourceString, right.ast()); },
   Factor_negate(_op, operand) { return new UnaryExp('-', operand.ast()); },
+  Power_exponent(left, op, right) { return new BinaryExp(left.ast(), '**', right.ast()); },
   Primary_parens(_open, expression, _close) { return expression.ast(); },
   number(_chars) { return new NumericLiteral(+this.sourceString); },
   id(_firstChar, _restChars) { return new Identifier(this.sourceString); },
@@ -203,6 +206,11 @@ int main() {
   });
   Object.assign(PrintStatement.prototype, {
     gen() { return `printf("%d\\n", ${this.expression.gen()});`; },
+  });
+  Object.assign(BinaryExp.prototype, {
+    gen() { 
+      return this.op == '**' ? `pow(${this.left.gen()}, ${this.right.gen()})` : `(${this.left.gen()} ${this.op} ${this.right.gen()})`; 
+    },
   });
 };
 
