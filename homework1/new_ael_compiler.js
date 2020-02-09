@@ -217,7 +217,7 @@ int main() {
 };
 
 generators.stack = () => {
-  const ops = { '+': 'ADD', '-': 'SUB', '*': 'MUL', '/': 'DIV' };
+  const ops = { '+': 'ADD', '-': 'SUB', '*': 'MUL', '/': 'DIV', '**' : 'EXP' };
 
   const instructions = [];
   function emit(instruction) { instructions.push(instruction); }
