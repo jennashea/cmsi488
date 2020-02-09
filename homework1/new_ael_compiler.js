@@ -194,7 +194,8 @@ generators.c = () => {
   generators.javascript();
   Object.assign(Program.prototype, {
     gen() {
-      return `#include <stdio.h>
+      let header = this.body.filter(s => s.gen().includes('pow')).length > 0 ? '#include <stdio.h>\n#include <math.h>' : '#include <stdio.h>'
+      return `${header}
 int main() {
     ${this.body.map(s => s.gen()).join('\n    ')}
     return 0;
@@ -209,6 +210,7 @@ int main() {
   });
   Object.assign(BinaryExp.prototype, {
     gen() { 
+
       return this.op == '**' ? `pow(${this.left.gen()}, ${this.right.gen()})` : `(${this.left.gen()} ${this.op} ${this.right.gen()})`; 
     },
   });
