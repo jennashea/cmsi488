@@ -1,20 +1,22 @@
 MysteryLanguage {
     Program     = Dec* Exp
-    Dec         = "func" id "(" (id("," id)*)? ")" Exp(";" Exp)* end
+    Dec         = "func" id "(" (id("," id)*)? ")" Exp(";" Exp)* "end"
     Exp         = Exp1 "?" Exp1 ":" Exp1        --ternary
                 | id "(" (Exp("," Exp)*)? ")"   --function
-                | numlit
-                | stringlit
-                | id
                 | Exp1
     Exp1        = Exp1 ("+" | "-") Exp2         --addop
                 | Exp2
     Exp2        = Exp2 ("*" | "/") Exp3         --mulop
                 | Exp3
-    Exp3        = "-" Exp4                      --negate
+    Exp3        = "-" Exp3                      --negate
                 | Exp4
-    Exp4        = numlit "!"                    --factorial
-                | numlit
+    Exp4        = Exp4 "!"                      --factorial
+                | Exp5
+    Exp5        = numlit
+                | stringlit
+                | id
+                | "(" Exp ")"                   --parens
+                | 
     numlit      = digit+ "." digit+ (("E"|"e") ("+"|"-")? digit+)?
     stringlit   = "\"" (char)* "\""
     char        = escape
@@ -24,7 +26,9 @@ MysteryLanguage {
     h           = "0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9"|"A"|"B"|"C"|"D"|"E"|"F"
     escape      = "\\\\" | "\\\"" | "\\'" | "\\n" | "\\t"    
     hexseq      = "\\u{"h h? h? h? h? h?"}"
-    keyword     = ("func" | "end")
-    id          = ~keyword letter ("_" | "$" | alnum)*
+    keyword     = ("func" | "end") ~idrest
+    idrest      = "_" | "$" | alnum
+    id          = ~keyword letter idrest*
+    space += comment
     comment     = "--" (~"\n" any)* "\n"
 }
