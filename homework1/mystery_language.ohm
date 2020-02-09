@@ -1,6 +1,7 @@
 MysteryLanguage {
     Program     = Dec* Exp
-    Dec         = "func" id "(" (id("," id)*)? ")" Exp(";" Exp)* "end"
+    Dec         = "func" id "(" ListOf<id, ","> ")" Body
+    Body        = Exp(";" Exp)* "end"
     Exp         = Exp1 "?" Exp1 ":" Exp1        --ternary
                 | id "(" (Exp("," Exp)*)? ")"   --function
                 | Exp1
@@ -16,7 +17,6 @@ MysteryLanguage {
                 | stringlit
                 | id
                 | "(" Exp ")"                   --parens
-                | 
     numlit      = digit+ "." digit+ (("E"|"e") ("+"|"-")? digit+)?
     stringlit   = "\"" (char)* "\""
     char        = escape
