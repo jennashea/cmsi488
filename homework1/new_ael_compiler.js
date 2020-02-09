@@ -197,7 +197,7 @@ generators.javascript = () => {
     gen() { return `let ${this.id} = ${this.expression.gen()};`; },
   });
   Object.assign(PrintStatement.prototype, {
-    gen() { return `console.log(${this.expression.gen()};`; },
+    gen() { return `console.log(${this.expression.gen()});`; },
   });
   Object.assign(WhileStatement.prototype, {
     gen() { return `while (${this.expression.gen()}) {${this.block.gen()}}`; },
@@ -249,11 +249,7 @@ int main() {
 };
 
 generators.stack = () => {
-<<<<<<< HEAD
   const ops = { '+': 'ADD', '-': 'SUB', '*': 'MUL', '/': 'DIV', '**': 'EXP' };
-=======
-  const ops = { '+': 'ADD', '-': 'SUB', '*': 'MUL', '/': 'DIV', '**' : 'EXP' };
->>>>>>> 656477008d92fdf1bd527b35ba55fb15848ef288
 
   const instructions = [];
   function emit(instruction) { instructions.push(instruction); }
