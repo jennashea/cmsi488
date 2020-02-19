@@ -59,3 +59,5 @@ describe('In the regex tester', () => {
     });
   });
 });
+
+runTests('regex', r);
