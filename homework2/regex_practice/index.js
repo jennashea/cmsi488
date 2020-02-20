@@ -14,6 +14,10 @@ function isNotThreeEndingInOO(s) {
     return /(^$|.{3}(?<![oO]{2}))/.test(s);
 }
 
+function isDivisibleBy64(s) {
+    return /^([01]*000000)$/.test(s);
+}
+
 function isEightThroughTwentyNine(s) {
     return /^[89]|[12]\d$/.test(s);
 }
@@ -27,5 +31,6 @@ module.exports = {
     isMasterCard,
     isAdaFloat,
     isEightThroughTwentyNine,
-    isNotThreeEndingInOO
+    isNotThreeEndingInOO,
+    isDivisibleBy64
 };
