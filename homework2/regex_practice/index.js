@@ -25,6 +25,14 @@ function isEightThroughTwentyNine(s) {
 function isAdaFloat(s) {
     return /^\d(_?\d)*(\.\d(_?\d)*)?(([Ee]\+?\d(_?\d)*)|([Ee]\-\d(_?\d)*))?$/.test(s);
 }
+
+function isMLComment(s) {
+    return /^(\(\*).+(\*\))$/.test(s);
+}
+      
+function isNotDogDoorDenWithLookAround(s) {
+    return /^(?!.*(dog|door|den)).*$/.test(s);
+}
 module.exports = {
     isCanadianPostalCode,
     isVisa,
@@ -32,5 +40,7 @@ module.exports = {
     isAdaFloat,
     isEightThroughTwentyNine,
     isNotThreeEndingInOO,
-    isDivisibleBy64
+    isDivisibleBy64,
+    isMLComment,
+    isNotDogDoorDenWithLookAround
 };
