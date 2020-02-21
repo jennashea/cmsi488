@@ -7,7 +7,19 @@ function isCanadianPostalCode(s) {
     return grammar.match(s).succeeded();
 }
 
+function isAdaFloat(s) {
+    const grammar = ohm.grammar(` isAdaFloat {
+        AdaNumLit   = decimalLit | basedLit
+        decimalLit  = numeral ("."numeral)? (exponent)?
+        basedLit    = numeral "#" basedNum ("."basedNum)? "#" (exponent)?
+        numeral     = digit ("_"? digit)*
+        basedNum    = hexDigit+ ("_"? hexDigit+)*
+        exponent    = (("E"|"e")("+"|"-")? numeral)?
+    }`);
+    return grammar.match(s).succeeded();
+}
+
 module.exports = {
     isCanadianPostalCode,
-    
+    isAdaFloat,
 };
