@@ -23,7 +23,7 @@ function isEightThroughTwentyNine(s) {
 }
 
 function isAdaFloat(s) {
-    return /^\d(_?\d)*(\.\d(_?\d)*)?(([Ee]\+?\d(_?\d)*)|([Ee]\-\d(_?\d)*))?$/.test(s);
+    return /(^\d(_?\d)*(\.\d(_?\d)*)?(([Ee]\+?\d(_?\d)*)|([Ee]\-\d(_?\d)*))?$)|(^0*([2-9]|1[0-6])#[\dA-Fa-f]+(_?[\dA-Fa-f]+)*(\.[\dA-Fa-f]+(_?[\dA-Fa-f]+)*)?#(([Ee][+-]?\d+))?$)/.test(s);
 }
 
 function isMLComment(s) {
