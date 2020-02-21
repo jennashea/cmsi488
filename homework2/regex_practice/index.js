@@ -15,7 +15,7 @@ function isNotThreeEndingInOO(s) {
 }
 
 function isDivisibleBy64(s) {
-    return /^(0|[01]*000000)$/.test(s);
+    return /^(0*|[01]*000000)$/.test(s);
 }
 
 function isEightThroughTwentyNine(s) {
