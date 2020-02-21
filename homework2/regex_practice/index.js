@@ -31,7 +31,7 @@ function isMLComment(s) {
 }
       
 function isNotDogDoorDenWithLookAround(s) {
-    return /^(?!.*(dog|door|den)).*$/.test(s);
+    return /^(?!(dog$|door$|den$)).*$/.test(s);
 }
 module.exports = {
     isCanadianPostalCode,
