@@ -27,8 +27,13 @@ function isAdaFloat(s) {
 }
 
 function isMLComment(s) {
-    return /^(\(\*).+(\*\))$/.test(s);
+    return /^(\(\*)([^)])*(\*\))$/.test(s);
 }
+
+function isNotDogDoorDenNoLookAround(s) {
+    return /^(d|do[^g]|de[^n]*|doo[^r]*|do[^go][a-zA-Z]+|dog[a-zA-Z]+|[a-zA-Z]+dog|[a-zA-Z]+dog[a-zA-Z]+|door[a-zA-Z]+|[a-zA-Z]+door|[a-zA-Z]+door[a-zA-Z]+|de[^n][a-zA-Z]*|den[a-zA-Z]+|[a-zA-Z]+den|[a-zA-Z]+den[a-zA-Z]+|[a-zA-Z]|[a-zA-Z][a-zA-Z]|[A-Z]*)$|^$/.test(s)
+}
+
       
 function isNotDogDoorDenWithLookAround(s) {
     return /^(?!(dog$|door$|den$)).*$/.test(s);
@@ -42,5 +47,6 @@ module.exports = {
     isNotThreeEndingInOO,
     isDivisibleBy64,
     isMLComment,
+    isNotDogDoorDenNoLookAround,
     isNotDogDoorDenWithLookAround
 };

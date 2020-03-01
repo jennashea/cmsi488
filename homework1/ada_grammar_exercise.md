@@ -35,4 +35,8 @@ Inputs cannot be chained with inputs, so expressions involving multiplicative op
 
 ### f.) Give an abstract syntax tree for the expression -8 * 5.
 
+![ASTProblem2f](Problem2f-1.png)
+
 ### g.) Suppose the grammar were changed by dropping the negation from Exp2 and adding - Exp5 to Exp4. Give the abstract syntax tree for the expression -8 * 5 according to the new grammar.
+
+
