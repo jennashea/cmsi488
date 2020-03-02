@@ -40,6 +40,19 @@ function isMasterCard(s) {
     return grammar.match(s).succeeded();
 }
 
+function isNotThreeEndingInOO(s) {
+    const grammar = ohm.grammar(`isNotThreeEndingInOO {
+        noThreeoO = one end | two end | four end | oo end | mido end | endo end | "" end 
+        one = letter
+        two = letter letter
+        four = letter letter letter letter+
+        mido = letter "a".."n" letter | letter "p".."z" letter |letter "A".."N" letter | letter "P".."Z" letter 
+        endo = letter letter "a".."n" | letter letter "p".."z" | letter letter "A".."N" | letter letter "P".."Z"
+        oo = letter ~"oO" | letter ~"Oo" | letter ~"oo" | letter ~"OO"
+    }`);
+    return grammar.match(s).succeeded();
+}
+
 function isEightThroughTwentyNine(s) {
     const grammar = ohm.grammar(`isEightThroughTwentyNine {
         value = ones | tens
@@ -98,6 +111,7 @@ module.exports = {
     isCanadianPostalCode,
     isVisa,
     isMasterCard,
+    isNotThreeEndingInOO,
     isEightThroughTwentyNine,
     isAdaFloat,
     isMLComment,
