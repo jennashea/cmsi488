@@ -11,7 +11,7 @@ function isMasterCard(s) {
 }
 
 function isNotThreeEndingInOO(s) {
-    return /(^$|.{3}(?<![oO]{2}))/.test(s);
+    return /^$|[a-zA-Z](?<![oO]{2})$|^[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]+$/.test(s);
 }
 
 function isDivisibleBy64(s) {
