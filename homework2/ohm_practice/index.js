@@ -59,6 +59,29 @@ function isMLComment(s) {
     return grammar.match(s).succeeded();
 }
 
+function isNotDogDoorDenNoLookAround(s) {
+    const grammar = ohm.grammar(`isNotDogDoorDenNoLookAround {
+        dogDoorDen = one end | two end |  ddPlus end | dddPlus end | caps end | fourPlus end
+        one = any
+        two = any any
+        ddPlus = char 
+        char = any char | any dog | any door | any den
+        den = "den"
+        dog = "dog"
+        door = "door"
+        dddPlus = "dog" any+ | "door" any+ | "den" any+
+        fourPlus = any any any noR any* | "a".."c" any any any any* | any noO any any any* | any any noO any any*
+        caps = cap*
+        cap  = "A".."Z"
+        noE = "a".."d" | "f".."z"
+        noN = "a".."m" | "o".."z"
+        noO = "a".."n" | "p".."z"
+        noG = "a".."f" | "h".."z"
+        noR = "a".."q" | "s".."z"
+    }`);
+    return grammar.match(s).succeeded();
+}
+
 function isNotDogDoorDenWithLookAround(s) {
     const grammar = ohm.grammar(`isNotDogDoorDenWithLookAround {
         dogDoorDen = ddd | dog | den | door
@@ -78,5 +101,6 @@ module.exports = {
     isEightThroughTwentyNine,
     isAdaFloat,
     isMLComment,
+    isNotDogDoorDenNoLookAround,
     isNotDogDoorDenWithLookAround
 };
