@@ -24,8 +24,8 @@ function isAdaFloat(s) {
 
 function isVisa(s) {
     const grammar = ohm.grammar(`isVisa {
-        Visa = "4" d d d d d d d d d d d d d d d --fifteen
-             | "4" d d d d d d d d d d d d --twelve
+        visa = "4" d d d d d d d d d d d d d d d end --fifteen
+             | "4" d d d d d d d d d d d d end --twelve
         d = digit
     }`);
     return grammar.match(s).succeeded();
@@ -49,10 +49,34 @@ function isEightThroughTwentyNine(s) {
     return grammar.match(s).succeeded();
 }
 
+function isMLComment(s) {
+    const grammar = ohm.grammar(`isMLComment {
+        ml = "(*" char
+        char = val 
+        val = digit val | space val | "*" val | "(" val | term end
+        term  = "*)"
+    }`);
+    return grammar.match(s).succeeded();
+}
+
+function isNotDogDoorDenWithLookAround(s) {
+    const grammar = ohm.grammar(`isNotDogDoorDenWithLookAround {
+        dogDoorDen = ddd | dog | den | door
+        dog = "dog" any+
+        den = "den" any+
+        door = "door" any+
+        ddd = ~"dog" ~"den" ~"door" any* 
+    }`);
+    return grammar.match(s).succeeded();
+}
+
+
 module.exports = {
     isCanadianPostalCode,
     isVisa,
     isMasterCard,
     isEightThroughTwentyNine,
     isAdaFloat,
+    isMLComment,
+    isNotDogDoorDenWithLookAround
 };
