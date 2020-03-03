@@ -42,14 +42,24 @@ function isMasterCard(s) {
 
 function isNotThreeEndingInOO(s) {
     const grammar = ohm.grammar(`isNotThreeEndingInOO {
-        noThreeoO = one end | two end | four end | oo end | mido end | endo end | "" end 
+        noThreeoO = one end | two end | four end | oo end | mido end | endo end | "" end
         one = letter
         two = letter letter
         four = letter letter letter letter+
-        mido = letter "a".."n" letter | letter "p".."z" letter |letter "A".."N" letter | letter "P".."Z" letter 
+        mido = letter "a".."n" letter | letter "p".."z" letter |letter "A".."N" letter | letter "P".."Z" letter
         endo = letter letter "a".."n" | letter letter "p".."z" | letter letter "A".."N" | letter letter "P".."Z"
         oo = letter ~"oO" | letter ~"Oo" | letter ~"oo" | letter ~"OO"
     }`);
+    return grammar.match(s).succeeded();
+}
+
+function isDivisibleBy64(s){
+    const grammar = ohm.grammar(`isDivisibleBy64 {
+        value = zero+
+        binary = zero | one
+        one = "1"
+        zero = "0"
+    }`)
     return grammar.match(s).succeeded();
 }
 
@@ -65,7 +75,7 @@ function isEightThroughTwentyNine(s) {
 function isMLComment(s) {
     const grammar = ohm.grammar(`isMLComment {
         ml = "(*" char
-        char = val 
+        char = val
         val = digit val | space val | "*" val | "(" val | term end
         term  = "*)"
     }`);
@@ -77,7 +87,7 @@ function isNotDogDoorDenNoLookAround(s) {
         dogDoorDen = one end | two end |  ddPlus end | dddPlus end | caps end | fourPlus end
         one = any
         two = any any
-        ddPlus = char 
+        ddPlus = char
         char = any char | any dog | any door | any den
         den = "den"
         dog = "dog"
@@ -101,7 +111,7 @@ function isNotDogDoorDenWithLookAround(s) {
         dog = "dog" any+
         den = "den" any+
         door = "door" any+
-        ddd = ~"dog" ~"den" ~"door" any* 
+        ddd = ~"dog" ~"den" ~"door" any*
     }`);
     return grammar.match(s).succeeded();
 }
@@ -116,5 +126,6 @@ module.exports = {
     isAdaFloat,
     isMLComment,
     isNotDogDoorDenNoLookAround,
-    isNotDogDoorDenWithLookAround
+    isNotDogDoorDenWithLookAround,
+    isDivisibleBy64
 };
