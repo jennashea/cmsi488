@@ -55,10 +55,10 @@ function isNotThreeEndingInOO(s) {
 
 function isDivisibleBy64(s){
     const grammar = ohm.grammar(`isDivisibleBy64 {
-        value = zero+
-        binary = zero | one
-        one = "1"
+        value = min | zero*
+        min = zero min | one min | "1000000" end
         zero = "0"
+        one = "1"
     }`)
     return grammar.match(s).succeeded();
 }
