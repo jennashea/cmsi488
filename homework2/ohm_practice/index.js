@@ -9,11 +9,9 @@ function isCanadianPostalCode(s) {
 
 function isAdaFloat(s) {
     const grammar = ohm.grammar(`isAdaFloat {
-        AdaNumLit   = decimalLit | basedLit
-
+        AdaNumLit   = basedLit | decimalLit
         decimalLit  = numeral ("." numeral)? (exponent)?
         basedLit    = numeral "#" basedNum ("." basedNum)? "#" (exponent)?
-
         numeral     = digit ("_"? digit)*
         basedNum    = extendNum ("_"? extendNum)*
         extendNum   = hexDigit
