@@ -21,31 +21,37 @@ No error.
 #### (1c.)
 
 incrementing a read-only variable
-This is a semantic error- access to modify variable not allowed.
+
+This is a **semantic error** - access to modify variable not allowed.
 
 #### (1d.)
 
 accessing a private field in another class
-This is a semantic error- access to read variable not allowed.
+
+This is a **semantic error** - access to read variable not allowed.
 
 #### (1e.)
 
 Using an uninitialized variable
-This is a semantic error- variable must be declared.
+
+This is a **semantic error** - variable must be declared.
 
 #### (1f.)
 
 Dereferencing a null reference
-This is not a compile time error- it is a runtime error (NullPointerException).
+
+This is **not a compile time error** - it is a runtime error (NullPointerException).
 
 #### (1g.)
 
 `null instanceof C`
+
 No error.
 
 #### (1h.)
 
 `!!x`
+
 No error.
 
 ### 2. Scope
